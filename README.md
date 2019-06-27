@@ -11,7 +11,43 @@ https://github.com/mikedh/trimesh
 
 This method of estimation is used so as many others existing in slam to estimate curvatures on the brain.
 
-Requirements : 
-Trimesh
+Requirements :
+------------
+
 Numpy
+~~~~~~~~~~~~~~~~~
+
+User installation
+~~~~~~~~~~~~~~~~~
+
+If you already have a working installation of numpy ,
+the easiest way to install scikit-learn is using ``pip``   ::
+
+    pip install numpy
+
+or ``conda``::
+
+    conda install numpy
+
+The documentation includes more detailed `installation instructions <https://docs.scipy.org/doc/>`_.
+
+------------
+
+Trimesh
+~~~~~~~~~~~~~~~~~
+
+User installation
+~~~~~~~~~~~~~~~~~
+
+If you already have a working installation of trimesh ,
+the easiest way to install scikit-learn is using ``pip``   ::
+
+    pip install trimesh
+
+or ``conda``::
+
+    conda install trimesh
+
+The documentation includes more detailed `installation instructions <https://trimsh.org/trimesh.html>`_.
+
   
