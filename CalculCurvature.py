@@ -2,13 +2,22 @@
 import trimesh
 import numpy as np
 from numpy.core._multiarray_umath import ndarray
-import slam.io as sio
-from slam import texture
-from slam.plot import pyglet_plot, linear_interp_rgba_colormap
+
 
 
 def ProjectCurvatureTensor(uf, vf, nf, old_ku, old_kuv, old_kv, up, vp):
-	
+	'''
+	ProjectCurvatureTensor performs a projection
+	of the tensor variables to the vertexcoordinate system
+	INPUT :
+	uf, vf : face coordinates system
+	old_ku, old_kuv, old_kv : face curvature tensor variables
+	up, vp : vertex cordinate system
+	nf : face normal
+	OUTPUT :
+	new_ku,new_kuv,new_kv : vertex curvature tensor coordinates
+	The tensor : [[new_ku, new_kuv], [new_kuv, new_kv]]
+	'''
 	r_new_u, r_new_v = RotateCoordinateSystem(up, vp, nf)
 	OldTensor = np.array([[old_ku, old_kuv], [old_kuv, old_kv]])
 	u1 = np.dot(r_new_u, uf)
@@ -145,6 +154,17 @@ def normr(X):
 
 
 def CalcVertexNormals(FV, N):
+	'''
+	CalcVertexNormals calculates the normals and voronoi areas at each vertex
+	INPUT:
+	FV - triangle mesh in face vertex structure
+	N - face normals
+	OUTPUT -
+	VertexNormals - [Nv X 3] matrix of normals at each vertex
+	Avertex - [NvX1] voronoi area at each vertex
+	Acorner - [NfX3] slice of the voronoi area at each face corner
+	'''
+	
 	print("Calculating vertex normals .... Please wait")
 	
 	"Get all the edge vectors"
@@ -291,16 +311,6 @@ def RotateCoordinateSystem(up, vp, nf):
 	r_new_v = r_new_v - dperp * np.dot(perp, np.transpose(r_new_v))
 	
 	return r_new_u, r_new_v
-
-
-def MSE(X_true, X_pred):
-	"""
-
-		:param X_pred: Predicted matrix with the same size of X_true
-		:param X_true: A matrix of true / original matrix
-		:return:  Double expressing mean square error
-		"""
-	return np.average((X_true - X_pred) ** 2)
 
 
 def somme_colonnes(X):
