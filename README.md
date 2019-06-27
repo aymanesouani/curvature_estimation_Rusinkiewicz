@@ -12,7 +12,6 @@ https://github.com/mikedh/trimesh
 This method of estimation is used so as many others existing in slam to estimate curvatures on the brain.
 
 Requirements :
-------------
 
 Numpy
 ~~~~~~~~~~~~~~~~~
@@ -21,7 +20,7 @@ User installation
 ~~~~~~~~~~~~~~~~~
 
 If you already have a working installation of numpy ,
-the easiest way to install scikit-learn is using ``pip``   ::
+the easiest way to install numpy is using ``pip``   ::
 
     pip install numpy
 
@@ -31,7 +30,7 @@ or ``conda``::
 
 The documentation includes more detailed `installation instructions <https://docs.scipy.org/doc/>`_.
 
-------------
+
 
 Trimesh
 ~~~~~~~~~~~~~~~~~
@@ -40,7 +39,7 @@ User installation
 ~~~~~~~~~~~~~~~~~
 
 If you already have a working installation of trimesh ,
-the easiest way to install scikit-learn is using ``pip``   ::
+the easiest way to install numpy is using ``pip``   ::
 
     pip install trimesh
 
