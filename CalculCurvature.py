@@ -1,4 +1,4 @@
-import time
+
 import trimesh
 import numpy as np
 from numpy.core._multiarray_umath import ndarray
@@ -8,6 +8,7 @@ from slam.plot import pyglet_plot, linear_interp_rgba_colormap
 
 
 def ProjectCurvatureTensor(uf, vf, nf, old_ku, old_kuv, old_kv, up, vp):
+	
 	r_new_u, r_new_v = RotateCoordinateSystem(up, vp, nf)
 	OldTensor = np.array([[old_ku, old_kuv], [old_kuv, old_kv]])
 	u1 = np.dot(r_new_u, uf)
@@ -103,36 +104,6 @@ def CalcCurvature(FV, VertexNormals, FaceNormals, Avertex, Acorner, up, vp):
 	print('Finished Calculating curvature tensors')
 	
 	return FaceSFM, VertexSFM, wfp
-
-
-"""def CalculDerivative(FV, FaceNormals, PrincipalCurvatures, up, vp, wfp):
-	
-	"CalcCurvatureDerivative recives a list of vertices and faces in FV structure
-	"and the curvature tensor at each vertex and calculate the curvature
-	"derivative matrix 2*2*2 VertexCmatrix using least squares
-	
-	
-	
-	"Input:
-	"FV - face-vertex data structure containing a list of vertices and a list of faces
-	"VertexSFM - n*(2*2) cell array (n= number of vertices) containing the second funcdmental tensor at each vertex
-	"FaceSFM - m*(2*2) cell array (m=number of faces) containing the second fundmental tensor at each face
-	
-	
-	
-	"Output
-	"FaceCmatrix - an  m*(2*2*2) cell matrix (m = number of faces) second fundemental derivative tensor at each face
-	"VertexCmatrix - an  n*(2*2*2) cell matrix (n = number of vertices) second fundemental derivative tensor at each vertex
-	
-	
-	print ('Calculating C Tensors ... Please wait')
-	
-	FaceCMatrix = np.zeros((FV.faces.shape[0], 4))
-	VertexCMatrix = np.zeros((FV.vertices.shape[0], 4))
-	new_CMatrix = np.zeros((1, 4))
-	
-	return None
-	"""
 
 
 def GetCurvaturesAndDerivatives(FV):
@@ -332,36 +303,6 @@ def MSE(X_true, X_pred):
 	return np.average((X_true - X_pred) ** 2)
 
 
-"""def estimateCurvatures(normals, tree, query, radius):
-	return np.void
-"""
-
-"""A oublier
-def ProjectCTensor(uf, vf, nf, Old_C, up, vp):
-	# new_CMatrix = np.zeros((2, 2, 2))
-	r_new_u, r_new_v = RotateCoordinateSystem(up, vp, nf)
-	u1 = np.dot(r_new_u, uf)
-	v1 = np.dot(r_new_u, vf)
-	u2 = np.dot(r_new_v, uf)
-	v2 = np.dot(r_new_v, vf)
-	new_C: ndarray = np.zeros((4, 1))
-	new_C[0] = Old_C[0] * np.dot(u1, np.dot(u1, u1)) + 3 * Old_C[1] * np.dot(u1, np.dot(u1, v1)) + 3 * Old_C[
-		2] * np.dot(u1, np.dot(v1, v1)) + Old_C[3] * np.dot(v1, np.dot(v1, v1))
-	new_C[1] = Old_C[0] * np.dot(u2, np.dot(u1, u1)) + Old_C[1] * (
-			np.dot(v2, np.dot(u1, u1)) + 2 * np.dot(u2, np.dot(u1, v1))) + Old_C[3] * (
-			           np.dot(u2, np.dot(v1, v1)) + 2 * np.dot(u1, np.dot(v1, v2))) + Old_C[3] * np.dot(v2,
-	                                                                                                    np.dot(v1, v1))
-	new_C[2] = Old_C[0] * np.dot(u1, np.dot(u2, u2)) + Old_C[1] * (
-			np.dot(v1, np.dot(u2, u2)) + 2 * np.dot(u2, np.dot(u1, v2))) + Old_C[3] * (
-			           np.dot(u1, np.dot(v2, v2)) + 2 * np.dot(u2, np.dot(v2, v1))) + Old_C[3] * np.dot(v1,
-	                                                                                                    np.dot(v2, v2))
-	new_C[3] = Old_C[0] * np.dot(u2, np.dot(u2, u2)) + 3 * Old_C[1] * np.dot(u2, np.dot(u2, v2)) + 3 * Old_C[
-		2] * np.dot(u2, np.dot(v2, v2)) + Old_C[3] * np.dot(v2, np.dot(v2, v2))
-	
-	return new_C
-"""
-
-
 def somme_colonnes(X):
 	"""
 	
@@ -372,132 +313,3 @@ def somme_colonnes(X):
 	for i in range(np.shape(X)[1]):
 		xx.append(sum(X[:, i]))
 	return np.array(xx)
-
-
-def display_curv(Name):
-	mesh = sio.load_mesh(Name + '.gii')
-	PrincipalCurvatures, PrincipalDir1, PrincipalDir2 = GetCurvaturesAndDerivatives(mesh)
-	print("PrincipalCurvatures", np.shape(PrincipalCurvatures))
-	print("Principale dir 1", np.shape(PrincipalDir1))
-	print("Principale dir 2", np.shape(PrincipalDir2))
-	gaussian_curvature = PrincipalCurvatures[0, :] * PrincipalCurvatures[1, :]
-	mean_curvature = 0.5 * (PrincipalCurvatures[0, :] + PrincipalCurvatures[1, :])
-	mesh.show()
-	pyglet_plot(mesh, gaussian_curvature)
-	pyglet_plot(mesh, mean_curvature)
-	return None
-
-
-if __name__ == '__main__':
-	"Ellipse example"
-	"""
-	mesh = sio.load_mesh('ellipsoide.gii')
-	"print(mesh.vertices)"
-	"print(mesh.faces)"
-	
-	PrincipalCurvatures, PrincipalDir1, PrincipalDir2 = GetCurvaturesAndDerivatives(mesh)
-	print("PrincipalCurvatures", np.shape(PrincipalCurvatures))
-	print("Principale dir 1", np.shape(PrincipalDir1))
-	print("Principale dir 2", np.shape(PrincipalDir2))
-	gaussian_curv = PrincipalCurvatures[0, :] * PrincipalCurvatures[1, :]
-	mean_curv = 0.5 * (PrincipalCurvatures[0, :] + PrincipalCurvatures[1, :])
-	# {print("gaussian_curv", gaussian_curv)
-	# print("mean_curv", mean_curv)
-	# print("mesh.vertex_normals", mesh.vertex_normals)
-	
-	M = np.array([[1., 2., 3., 4.], [1., 2., 3., 4.]])
-	x = np.transpose(np.sqrt(1 / somme_colonnes(np.transpose(M * M))))
-	print(x)
-	print(np.shape(x))
-	print(np.reshape(x, (2, 1)))
-	print(normr(M))
-	mesh.show()
-	pyglet_plot(mesh, np.transpose(gaussian_curv))
-	pyglet_plot(mesh, mean_curv)
-	
-	"Sphere example"
-	mesh = sio.load_mesh('sphere.gii')
-	PrincipalCurvatures, PrincipalDir1, PrincipalDir2 = GetCurvaturesAndDerivatives(mesh)
-	print("PrincipalCurvatures", np.shape(PrincipalCurvatures))
-	print("Principale dir 1", np.shape(PrincipalDir1))
-	print("Principale dir 2", np.shape(PrincipalDir2))
-	gaussian_curv = PrincipalCurvatures[0, :] * PrincipalCurvatures[1, :]
-	mean_curv = 0.5 * (PrincipalCurvatures[0, :] + PrincipalCurvatures[1, :])
-	mesh.show()
-	pyglet_plot(mesh, np.transpose(gaussian_curv))
-	pyglet_plot(mesh, mean_curv)
-	
-	"Quad  100 example"
-	mesh = sio.load_mesh('quadric_K1_1_K2_-1_10.gii')
-	PrincipalCurvatures, PrincipalDir1, PrincipalDir2 = GetCurvaturesAndDerivatives(mesh)
-	print("PrincipalCurvatures", np.shape(PrincipalCurvatures))
-	print("Principale dir 1", np.shape(PrincipalDir1))
-	print("Principale dir 2", np.shape(PrincipalDir2))
-	gaussian_curv = PrincipalCurvatures[0, :] * PrincipalCurvatures[1, :]
-	mean_curv = 0.5 * (PrincipalCurvatures[0, :] + PrincipalCurvatures[1, :])
-	mesh.show()
-	pyglet_plot(mesh, np.transpose(gaussian_curv))
-	pyglet_plot(mesh, mean_curv)
-	
-	"Quad  2500 example"
-	mesh = sio.load_mesh('quadric_K1_0_K2_1.gii')
-	PrincipalCurvatures, PrincipalDir1, PrincipalDir2 = GetCurvaturesAndDerivatives(mesh)
-	print("PrincipalCurvatures", np.shape(PrincipalCurvatures))
-	print("Principale dir 1", np.shape(PrincipalDir1))
-	print("Principale dir 2", np.shape(PrincipalDir2))
-	gaussian_curv = PrincipalCurvatures[0, :] * PrincipalCurvatures[1, :]
-	mean_curv = 0.5 * (PrincipalCurvatures[0, :] + PrincipalCurvatures[1, :])
-	mesh.show()
-	pyglet_plot(mesh, np.transpose(gaussian_curv))
-	pyglet_plot(mesh, mean_curv)
-	
-	"Quad  225000 example"
-	mesh = sio.load_mesh('quadric_K1_-1_K2_-1_150.gii')
-	PrincipalCurvatures, PrincipalDir1, PrincipalDir2 = GetCurvaturesAndDerivatives(mesh)
-	print("PrincipalCurvatures", np.shape(PrincipalCurvatures))
-	print("Principale dir 1", np.shape(PrincipalDir1))
-	print("Principale dir 2", np.shape(PrincipalDir2))
-	gaussian_curv = PrincipalCurvatures[0, :] * PrincipalCurvatures[1, :]
-	mean_curv = 0.5 * (PrincipalCurvatures[0, :] + PrincipalCurvatures[1, :])
-	mesh.show()
-	pyglet_plot(mesh, np.transpose(gaussian_curv))
-	pyglet_plot(mesh, mean_curv)
-	
-	white_left_327680 sample
-	mesh = sio.load_mesh('OAS1_0006_Lhemi.gii')
-	PrincipalCurvatures, PrincipalDir1, PrincipalDir2 = GetCurvaturesAndDerivatives(mesh)
-	gaussian_curv = PrincipalCurvatures[0, :] * PrincipalCurvatures[1, :]
-	mean_curv = 0.5 * (PrincipalCurvatures[0, :] + PrincipalCurvatures[1, :])
-	print(gaussian_curv)
-	print(mean_curv)
-	mesh.show()
-	print("min cmean", min(mean_curv))
-	print("max cmean", max(mean_curv))
-	print("min cgauss", min(gaussian_curv))
-	print("max cgauss", max(gaussian_curv))
-	pyglet_plot(mesh, gaussian_curv)
-	pyglet_plot(mesh, mean_curv)
-"""
-	t1 = time.time()
-	mesh = sio.load_mesh('hex_quad_k1_-1_k2_-1_10.gii')
-	#fd = '/hpc/meca/users/bohi.a/Data/Models/week23_ref_surf/B0.txt'
-	#coords = np.loadtxt(fd,skiprows=1,max_rows=50943)
-	#faces = np.loadtxt(fd, skiprows=50945, dtype=np.int)
-	print(mesh.vertices.shape)
-	#mesh = trimesh.Trimesh(faces=faces-1, vertices=coords, process=False)
-	mesh.show()
-	PrincipalCurvatures, PrincipalDir1, PrincipalDir2 = GetCurvaturesAndDerivatives(mesh)
-	gaussian_curv = PrincipalCurvatures[0, :] * PrincipalCurvatures[1, :]
-	mean_curv = 0.5 * (PrincipalCurvatures[0, :] + PrincipalCurvatures[1, :])
-	#tex2 = texture.TextureND(darray=mean_curv)
-	#sio.write_texture(tex2,'mean_curv.gii')
-	print("le calcul a duré : ", time.time() - t1)
-	print(gaussian_curv)
-	print(mean_curv)
-	mesh.show()
-	print("min cmean", min(mean_curv))
-	print("max cmean", max(mean_curv))
-	print("min cgauss", min(gaussian_curv))
-	print("max cgauss", max(gaussian_curv))
-	pyglet_plot(mesh, gaussian_curv)
-	pyglet_plot(mesh, mean_curv)
