@@ -10,3 +10,8 @@ slam is a pure Python library for analysing and modeling surfaces represented as
 https://github.com/mikedh/trimesh
 
 This method of estimation is used so as many others existing in slam to estimate curvatures on the brain.
+
+Requirements : 
+  Trimesh
+  Numpy
+  
