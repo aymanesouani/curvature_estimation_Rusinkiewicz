@@ -12,6 +12,6 @@ https://github.com/mikedh/trimesh
 This method of estimation is used so as many others existing in slam to estimate curvatures on the brain.
 
 Requirements : 
-  Trimesh
-  Numpy
+Trimesh
+Numpy
   
