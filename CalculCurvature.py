@@ -125,9 +125,11 @@ def GetCurvaturesAndDerivatives(FV):
 
 def CalcFaceNormals(FV):
 	"""
-	
-	:param FV: face vertex data structure containing a list of vertices and a list of faces
-	:return:
+	Calculates face normals
+	INPUT :
+	FV: face vertex data structure containing a list of vertices and a list of faces
+	OUTPUT :
+	Face normals : matrix that contains each faces' normal (dim = number of faces * 3 ) 
 	"""
 	
 	"Get all edge vectors"
@@ -258,6 +260,16 @@ def CalcVertexNormals(FV, N):
 
 
 def getPrincipalCurvatures(FV, VertexSFM, up, vp):
+	'''
+	Calculates the principal curvatures and prncipal directions 
+	INPUT :
+	FV : triangular mesh  
+	VertexSFM : second fundemental matrix for each vertex
+	up , vp : vertex local coordinate frame 
+	OUTPUT : 
+	PrincipalCurvature : Matrix containing pricipale curvatures ( dim = 2 * Number of vertices )
+	PrincipalDi1 , PrincipalDi2 : First and second principal directions
+	'''
 	print("Calculating Principal Components ... Please wait")
 	
 	"Calculate principal curvatures"
@@ -298,6 +310,16 @@ def getPrincipalCurvatures(FV, VertexSFM, up, vp):
 
 
 def RotateCoordinateSystem(up, vp, nf):
+	'''
+	RotateCoordinateSystem performs the rotation of the vectors up and vp
+	to the plane defined by nf as its normal vector
+	INPUT:
+	up,vp : vectors to be rotated (vertex coordinate system)
+	nf : face normal
+	OUTPUT:
+	r_new_u,r_new_v : new rotated vectors 
+	'''
+	
 	r_new_u = up
 	r_new_v = vp
 	npp = np.cross(up, vp) / np.linalg.norm(np.cross(up, vp))
@@ -316,8 +338,10 @@ def RotateCoordinateSystem(up, vp, nf):
 def somme_colonnes(X):
 	"""
 	
-	:param X: A matrix
-	:return:  A row that contains the sum of each column
+	INPUT :
+	X : A matrix with any dimension
+	OUTPUT:
+	A row that contains the sum of each column
 	"""
 	xx = list()
 	for i in range(np.shape(X)[1]):
