@@ -1,7 +1,7 @@
 
 import trimesh
 import numpy as np
-from numpy.core._multiarray_umath import ndarray
+
 
 
 
