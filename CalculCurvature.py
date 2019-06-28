@@ -1,9 +1,4 @@
-
-import trimesh
 import numpy as np
-
-
-
 
 def ProjectCurvatureTensor(uf, vf, nf, old_ku, old_kuv, old_kv, up, vp):
 	'''
