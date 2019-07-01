@@ -1,6 +1,6 @@
 -Rusinkiewicz
 
-This code is a deduction of Rusinkiewicz's paper for curvature estimation . 
+This script "CalculCurvature.py" is a deduction of Rusinkiewicz's paper for curvature estimation . 
 Paper : Estimation of curvatures and their derivatives on triangle Meshes by Rusinkiewicz
 
 In our case we don't go far to derivatives.
