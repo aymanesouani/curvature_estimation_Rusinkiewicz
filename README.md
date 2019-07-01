@@ -12,25 +12,6 @@ This method of estimation is used so as many others existing in slam to estimate
 
 Requirements :
 
-Numpy
-~~~~~~~~~~~~~~~~~
-
-User installation
-~~~~~~~~~~~~~~~~~
-
-If you already have a working installation of numpy ,
-the easiest way to install numpy is using ``pip``   ::
-
-    pip install numpy
-
-or ``conda``::
-
-    conda install numpy
-
-The documentation includes more detailed `installation instructions <https://docs.scipy.org/doc/>`_.
-
-
-
 Trimesh
 ~~~~~~~~~~~~~~~~~
 
