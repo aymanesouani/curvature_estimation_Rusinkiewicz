@@ -3,6 +3,8 @@
 This script "CalculCurvature.py" is a deduction of Rusinkiewicz's paper for curvature estimation . 
 Paper : Estimation of curvatures and their derivatives on triangle Meshes by Rusinkiewicz
 
+Tou need onlu numpy module to run the script "CalculCurvature.py"
+
 In our case we don't go far to derivatives.
 
 Trimesh is an open source python module dedicated to general mesh processing using only triangular mesh : 
