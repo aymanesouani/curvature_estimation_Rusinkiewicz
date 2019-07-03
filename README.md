@@ -11,7 +11,6 @@ You need only numpy module to run the script "CalculCurvature.py", while to run 
 Trimesh is an open source python module dedicated to general mesh processing using only triangular mesh : 
 https://github.com/mikedh/trimesh
 
-This method of estimation is used so as many others existing in slam to estimate curvatures on the brain.
 
 Requirements :
 
