@@ -4,7 +4,7 @@ This script "CalculCurvature.py" is a deduction of Rusinkiewicz's paper for curv
 
 Paper : Estimation of curvatures and their derivatives on triangle Meshes by Rusinkiewicz
 
-You need only numpy module to run the script "CalculCurvature.py"
+You need only numpy module to run the script "CalculCurvature.py", while to run examples, you need also trimesh to work with triangular meshes and matplotlib to do the Delaunay triangulation.
 
 
 
