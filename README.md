@@ -1,4 +1,4 @@
--Rusinkiewicz
+Not finished.
 
 This script "CalculCurvature.py" is a deduction of Rusinkiewicz's paper for curvature estimation . In our case we don't go far to derivatives.
 
