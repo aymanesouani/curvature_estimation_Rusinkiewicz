@@ -44,3 +44,16 @@ if __name__ == '__main__':
     elif gaussian_curv.shape[0] == mesh.faces.shape[0]:
         mesh.visual.face_colors = vect_col_map
     mesh.show(background=[0, 0, 0, 255])
+    
+    # Calculate mean error between real and estimated curvatures
+
+    # Mean curvature
+    
+    mesh_coords = mesh.vertices
+    curv_mean_real = gqs.quadric_curv_mean(Ks[0][0], Ks[0][1])(mesh_coords[:, 0], mesh_coords[:, 1])
+    print("Error = ", np.mean(np.abs(mean_curv - curv_mean_real)))
+
+    # Gauss curvature
+    
+    curv_gauss_real = gqs.quadric_curv_gauss(Ks[0][0], Ks[0][1])(mesh_coords[:, 0], mesh_coords[:, 1])
+    print("Error = ", np.mean(np.abs(gaussian_curv - curv_gauss_real)))
