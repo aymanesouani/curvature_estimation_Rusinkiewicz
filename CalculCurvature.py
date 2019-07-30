@@ -40,7 +40,7 @@ def CalcCurvature(FV, VertexNormals, FaceNormals, Avertex, Acorner, up, vp):
 	FaceSFM - an m*1 cell matrix second fundemental
 	VertexSFM - an n*w cell matrix second fundementel
 	wfp - corner voronoi weights """
-	
+	print("Calculating curvature tensors ... Please wait")
 	"Matrix of each face at each cell"
 	FaceSFM, VertexSFM = list(), list()
 	for i in range(FV.faces.shape[0]):
